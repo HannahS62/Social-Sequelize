@@ -5,14 +5,14 @@ const { Comment, Like, Post, Profile, User } = require("./models/index");
 User.hasOne(Profile);
 Profile.belongsTo(User);
 
-Profile.hasOne(User);
-User.belongsTo(Profile);
-
 User.hasMany(Post);
 Post.belongsTo(User);
 
 Post.hasMany(Comment);
 Comment.belongsTo(Post);
+
+User.belongsToMany(Like, { through: "UserLikes" });
+Like.belongsToMany(User, { through: "UserLikes" });
 
 module.exports = {
   Comment,
